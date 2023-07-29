@@ -3,6 +3,9 @@ import {
   getUserByEmail,
   getUserDetails,
   insertNewReport,
+  createPaymentTransactionDb,
+  getPropertyIdByTenantId,
+  depositDb,
 } from '../models/userDB.js';
 import jwt from 'jsonwebtoken';
 
@@ -84,4 +87,29 @@ async function addReport(req, res) {
   });
 }
 
-export { doesUserExist, getUserByEmailAndPassword, usersDetails, addReport };
+async function createPaymentTransaction(req, res, next) {
+  console.log('in function createPaymentTransaction');
+
+  try {
+    const depos = await createPaymentTransactionDb(req);
+    next();
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send(err.message);
+  }
+}
+async function deposit(req, res) {
+  console.log('in function deposit');
+  const property_id = await getPropertyIdByTenantId(req.body.id);
+  console.log('property id:' + property_id);
+  const depos = await depositDb(property_id, req.body.amount);
+  return res.status(200).send('Deposit succes');
+}
+export {
+  doesUserExist,
+  getUserByEmailAndPassword,
+  usersDetails,
+  addReport,
+  createPaymentTransaction,
+  deposit,
+};
