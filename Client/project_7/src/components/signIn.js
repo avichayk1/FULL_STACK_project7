@@ -1,20 +1,20 @@
-import * as React from "react";
-import axios from "axios";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import * as React from 'react';
+import axios from 'axios';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -32,13 +32,13 @@ export default function SignIn() {
     const password = event.target.password.value;
 
     if (!email || !password) {
-      alert("Please fill in all the required fields.");
+      alert('Please fill in all the required fields.');
       return;
     }
 
     async function fetchUserData() {
       axios
-        .post("http://localhost:3100/users/login", {
+        .post('http://localhost:3100/users/login', {
           email: email,
           password: password,
         })
@@ -52,7 +52,7 @@ export default function SignIn() {
 
     async function fetchManagerData() {
       axios
-        .post("http://localhost:3100/manager/login", {
+        .post('http://localhost:3100/manager/login', {
           email: email,
           password: password,
         })
@@ -71,8 +71,8 @@ export default function SignIn() {
   };
 
   const handleNavigation = (type) => {
-    if (type === "signUp") {
-      navigate("/signUp");
+    if (type === 'signUp') {
+      navigate('/signUp');
     } else {
       navigate();
     }
@@ -84,20 +84,26 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+      >
         <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography
+            component="h1"
+            variant="h5"
+          >
             Sign in
           </Typography>
           <Box
@@ -145,12 +151,14 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-              </Grid>
+              <Grid
+                item
+                xs
+              ></Grid>
               <Grid item>
                 <Link
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleNavigation("signUp")}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleNavigation('signUp')}
                   variant="body2"
                 >
                   {"Don't have an account? Sign Up"}
