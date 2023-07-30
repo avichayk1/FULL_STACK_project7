@@ -17,6 +17,7 @@ import PaymentPage from './components/payment';
 import Details from './components/details';
 import ManagerApplication from './components/managerApplication';
 import Reports from './components/reports';
+
 import GoodPayment from './components/goodPayment';
 function App() {
   return (

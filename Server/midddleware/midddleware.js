@@ -27,6 +27,7 @@ function checkReqPaymentData(req, res, next) {
       amount,
     } = req.body;
     console.log(cardNumber);
+
     if (!cardNumber) console.log('Missing card number data');
     else if (!id) console.log('Missing id data');
     else if (!expirationMonth) console.log('Missing expiration month data');

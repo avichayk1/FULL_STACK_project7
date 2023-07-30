@@ -199,7 +199,6 @@ async function depositDb(property_id, amount) {
 
     // Perform the UPDATE query to deposit the money
     const [result] = await pool.query(sql, [amount, property_id]);
-
     if (result.affectedRows === 0) {
       // If no rows were affected, it means the property_id was not found
       // You can handle this case according to your requirements (e.g., throw an error, return false, etc.)

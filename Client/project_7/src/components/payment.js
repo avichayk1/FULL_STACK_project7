@@ -34,6 +34,7 @@ const PaymentPage = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
+
   const defaultTheme = createTheme();
 
   const handleSelectChange = (event) => {

@@ -100,6 +100,7 @@ async function createPaymentTransaction(req, res, next) {
 }
 async function deposit(req, res) {
   console.log('in function deposit');
+
   const property_id = await getPropertyIdByTenantId(req.body.id);
   console.log('property id:' + property_id);
   const depos = await depositDb(property_id, req.body.amount);
