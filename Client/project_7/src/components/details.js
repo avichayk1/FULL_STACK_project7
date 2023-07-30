@@ -7,16 +7,16 @@ import "../styles/details.css";
 const Details = () => {
   const { id } = useParams();
 
+  axios.defaults.headers.common["authorization"] =
+    localStorage.getItem("token");
+
   const [response, setResponse] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleGetData = () => {
-    setLoading(true);
-
-    // Make the Axios request to your server API
-  };
   useEffect(() => {
+    console.log("useEffect in details");
     // Function to fetch data using Axios
+    // axios.defaults.headers.common["Authorization"] = "Bearer YOUR_ACCESS_TOKEN";
+    // console.log(localStorage.getItem("token"));
     axios
       .get(`http://localhost:3100/users/userDetails/${id}`)
       .then((response) => {
@@ -25,9 +25,6 @@ const Details = () => {
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-      })
-      .finally(() => {
-        setLoading(false);
       });
 
     // fetchData(); // Call the fetch function on component mount
