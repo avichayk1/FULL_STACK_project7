@@ -17,6 +17,7 @@ import {
   TableRow,
   TableCell,
   Select,
+  Modal,
 } from '@mui/material';
 import axios from 'axios';
 
@@ -34,6 +35,7 @@ const MReports = () => {
   const [PropertyOptions, setPropertyOptions] = useState([]);
   const [reportData, setReportData] = useState([]);
   const [selectedStatusOption, setSelectedStatusOption] = useState('');
+  const [selectedReport, setSelectedReport] = useState(null);
 
   useEffect(() => {
     axios
@@ -97,6 +99,14 @@ const MReports = () => {
     { value: 'In Progress', label: 'In Progress' },
     { value: 'Closed', label: 'Closed' },
   ];
+
+  const handleOpenModal = (report) => {
+    setSelectedReport(report);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedReport(null);
+  };
 
   return (
     <div>
@@ -188,7 +198,8 @@ const MReports = () => {
                   <TableCell>Status</TableCell>
                   <TableCell>Type</TableCell>
                   <TableCell>Location</TableCell>
-                  <TableCell>Image Path</TableCell>
+                  <TableCell>Image</TableCell>{' '}
+                  {/* Change the header to 'Image' */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -219,7 +230,11 @@ const MReports = () => {
                     </TableCell>
                     <TableCell>{report.type}</TableCell>
                     <TableCell>{report.location}</TableCell>
-                    <TableCell>{report.image_path}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleOpenModal(report)}>
+                        View Image
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -227,6 +242,22 @@ const MReports = () => {
           </TableContainer>
         </Container>
       )}
+
+      {/* Modal Dialog to display the image */}
+      <Modal
+        open={!!selectedReport}
+        onClose={handleCloseModal}
+      >
+        <div>
+          {selectedReport && selectedReport.image && (
+            <img
+              src={selectedReport.image}
+              alt="Report"
+              style={{ maxWidth: '100%' }}
+            />
+          )}
+        </div>
+      </Modal>
     </div>
   );
 };
