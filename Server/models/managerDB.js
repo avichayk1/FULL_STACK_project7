@@ -184,6 +184,14 @@ async function addNewTenant(req, res) {
   });
 }
 
+// async function deleteTenant(req, res) {
+//   const id = req.params.id;
+//   const property_id = req.params.property_id;
+//   const sql = `DELETE FROM tenants WHERE id=${id}`;
+//   const response = poll(sql);
+//   res.status(200).json(response[0]);
+// }
+
 export {
   managerLogIn,
   getFualtByType,

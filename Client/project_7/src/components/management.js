@@ -21,7 +21,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Management = () => {
   const { id } = useParams();
-  const [data, setData] = useState([]);
   const [newItem, setNewItem] = useState({
     // Initialize state for the form fields
     full_name: "",
@@ -60,15 +59,16 @@ const Management = () => {
     console.log(newItem);
     try {
       await axios.post("http://localhost:3100/manager/logUpNew", newItem);
-      // fetchData(); // Refresh the data after adding a new item
     } catch (error) {
       console.error("Error adding data:", error);
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      await axios.delete(`http://your-backend-api/data/${id}`);
+      await axios.delete(
+        `http://localhost:3100/manager/${userToDelete.user_id}/${selectedOption}`
+      );
       fetchData(); // Refresh the data after deleting an item
     } catch (error) {
       console.error("Error deleting data:", error);
@@ -180,7 +180,7 @@ const Management = () => {
           name="user_id"
           label="user_id"
           value={user.user_id}
-          onChange={() => setUser(e.target.value)}
+          onChange={() => setUserToDelete(e.target.value)}
           fullWidth
           margin="normal"
         />

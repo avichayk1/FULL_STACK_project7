@@ -22,4 +22,5 @@ router.get("/reportsPayment/:id", getPayments);
 router.get("/:id/managerDetails", authenticateToken, managerDetails);
 router.put("/updateReportStatus/:reportId", updateReportStatus);
 router.post("/logUpNew", authenticateToken, addNewTenant);
+router.delete("/:id/:property_id", authenticateToken, deleteTenant);
 export default router;
