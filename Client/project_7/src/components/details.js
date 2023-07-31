@@ -26,14 +26,12 @@ const Details = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
-    // fetchData(); // Call the fetch function on component mount
   }, []); // Empty dependency array means it will run only once on mount
 
   return (
     <>
       {/* <Card> */}
-      <div className="user-card">
+      <div className="user-card" style={{ paddingTop: "350px" }}>
         <div className="user-header">
           <h2>personal information:</h2>
         </div>
