@@ -72,8 +72,8 @@ const MReports = () => {
       });
   };
 
-  const handleStatusChange = (reportId, status) => {
-    axios
+  async function handleStatusChange(reportId, status) {
+    await axios
       .put(`http://localhost:3100/manager/updateReportStatus/${reportId}`, {
         status: status,
       })
@@ -84,7 +84,7 @@ const MReports = () => {
         console.error(error);
       });
     handleFormSubmit();
-  };
+  }
 
   const options = [
     { value: 'maintenance', label: 'Maintenance fault' },
