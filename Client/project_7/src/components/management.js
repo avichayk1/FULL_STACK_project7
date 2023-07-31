@@ -69,7 +69,7 @@ const Management = () => {
       await axios.delete(
         `http://localhost:3100/manager/${userToDelete.user_id}/${selectedOption}`
       );
-      fetchData(); // Refresh the data after deleting an item
+      // fetchData(); // Refresh the data after deleting an item
     } catch (error) {
       console.error("Error deleting data:", error);
     }
@@ -179,8 +179,8 @@ const Management = () => {
         <TextField
           name="user_id"
           label="user_id"
-          value={user.user_id}
-          onChange={() => setUserToDelete(e.target.value)}
+          value={userToDelete.user_id}
+          onChange={(e) => setUserToDelete(e.target.value)}
           fullWidth
           margin="normal"
         />
