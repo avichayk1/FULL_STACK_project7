@@ -9,8 +9,6 @@ import {
   Button,
   Grid,
   MenuItem,
-  createTheme,
-  ThemeProvider,
   Paper,
   TableContainer,
   Table,
@@ -35,6 +33,7 @@ const MReports = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [PropertyOptions, setPropertyOptions] = useState([]);
   const [reportData, setReportData] = useState([]);
+  const [selectedStatusOption, setSelectedStatusOption] = useState('');
 
   useEffect(() => {
     axios
@@ -52,12 +51,16 @@ const MReports = () => {
     setSelectedPropertyOption(event.target.value);
   };
 
+  const handleStatusOptionChange = (event) => {
+    setSelectedStatusOption(event.target.value);
+  };
+
   const handleFormSubmit = () => {
     axios
       .get(`http://localhost:3100/manager/reportsData/${id}`, {
         params: {
           property_id: selectedPropertyOption,
-          status: 'Open',
+          status: selectedStatusOption,
           type: selectedOption,
         },
       })
@@ -75,7 +78,6 @@ const MReports = () => {
         status: status,
       })
       .then((response) => {
-        // Handle the response if needed
         console.log(response.data);
       })
       .catch((error) => {
@@ -88,6 +90,12 @@ const MReports = () => {
     { value: 'maintenance', label: 'Maintenance fault' },
     { value: 'cleaning', label: 'Cleaning fault' },
     { value: 'special', label: 'Special request' },
+  ];
+
+  const status_option = [
+    { value: 'Open', label: 'Open' },
+    { value: 'In Progress', label: 'In Progress' },
+    { value: 'Closed', label: 'Closed' },
   ];
 
   return (
@@ -106,7 +114,6 @@ const MReports = () => {
             item
             xs={12}
           >
-            {/* Dropdown to choose from a list */}
             <TextField
               fullWidth
               select
@@ -141,6 +148,23 @@ const MReports = () => {
                 </MenuItem>
               ))}
             </TextField>
+            <TextField
+              fullWidth
+              select
+              label="Status"
+              value={selectedStatusOption}
+              onChange={handleStatusOptionChange}
+              variant="outlined"
+            >
+              {status_option.map((option) => (
+                <MenuItem
+                  key={option.value}
+                  value={option.value}
+                >
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
             <Button
               variant="contained"
               color="primary"
@@ -169,7 +193,7 @@ const MReports = () => {
               </TableHead>
               <TableBody>
                 {reportData.map((report) => (
-                  <TableRow key={report.id}>
+                  <TableRow key={report.fault_id}>
                     <TableCell>{report.property_id}</TableCell>
                     <TableCell>{report.description}</TableCell>
                     <TableCell>{report.date_reported}</TableCell>
@@ -177,12 +201,20 @@ const MReports = () => {
                       <Select
                         value={report.status}
                         onChange={(event) =>
-                          handleStatusChange(report.id, event.target.value)
+                          handleStatusChange(
+                            report.fault_id,
+                            event.target.value
+                          )
                         }
                       >
-                        <MenuItem value="Open">Open</MenuItem>
-                        <MenuItem value="In Progress">In Progress</MenuItem>
-                        <MenuItem value="Closed">Closed</MenuItem>
+                        {status_option.map((option) => (
+                          <MenuItem
+                            key={option.value}
+                            value={option.value}
+                          >
+                            {option.label}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </TableCell>
                     <TableCell>{report.type}</TableCell>
@@ -193,13 +225,6 @@ const MReports = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          {/* <Button
-            variant="contained"
-            color="primary"
-            onClick={handleUpdateStatus}
-          >
-            Update Status
-          </Button> */}
         </Container>
       )}
     </div>
