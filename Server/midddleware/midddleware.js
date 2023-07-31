@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
 
 async function authenticateToken(req, res, next) {
+  console.log("in function authenticateToken");
   const authHeader = req.headers.authorization;
-  // console.log(req.headers.authorization);
-  // const token = authHeader && authHeader.split(" ")[1];
-  // console.log(token);
+
   if (authHeader == null) return res.status(401);
 
   jwt.verify(authHeader, process.env.ACCESS_TOKEN_SECRET, (err, id) => {
