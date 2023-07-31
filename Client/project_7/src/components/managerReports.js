@@ -131,9 +131,11 @@ const MReports = () => {
               variant="outlined"
               value={selectedOption}
               onChange={handleOptionChange}
+              style={{ width: '100%' }} // Set a fixed width for the text field
             >
               {options.map((option) => (
                 <MenuItem
+                  style={{ width: '100%' }}
                   key={option.value}
                   value={option.value}
                 >
@@ -148,9 +150,11 @@ const MReports = () => {
               variant="outlined"
               value={selectedPropertyOption}
               onChange={handlePropertyOptionChange}
+              style={{ width: '100%' }} // Set a fixed width for the text field
             >
               {PropertyOptions.map((option) => (
                 <MenuItem
+                  style={{ width: '100%' }}
                   key={option.id}
                   value={option.id}
                 >
@@ -165,9 +169,11 @@ const MReports = () => {
               value={selectedStatusOption}
               onChange={handleStatusOptionChange}
               variant="outlined"
+              style={{ width: '100%' }} // Set a fixed width for the text field
             >
               {status_option.map((option) => (
                 <MenuItem
+                  style={{ width: '100%' }}
                   key={option.value}
                   value={option.value}
                 >
@@ -179,6 +185,7 @@ const MReports = () => {
               variant="contained"
               color="primary"
               onClick={handleFormSubmit}
+              style={{ width: '100%' }} // Set a fixed width for the button
             >
               Submit
             </Button>
@@ -188,8 +195,11 @@ const MReports = () => {
 
       {reportData.length > 0 && (
         <Container maxWidth="md">
-          <TableContainer component={Paper}>
-            <Table>
+          <TableContainer
+            component={Paper}
+            style={{ maxHeight: '400px', overflowY: 'auto' }}
+          >
+            <Table style={{ tableLayout: 'fixed' }}>
               <TableHead>
                 <TableRow>
                   <TableCell>Property ID</TableCell>
@@ -198,7 +208,7 @@ const MReports = () => {
                   <TableCell>Status</TableCell>
                   <TableCell>Type</TableCell>
                   <TableCell>Location</TableCell>
-                  <TableCell>Image</TableCell>{' '}
+                  <TableCell>Image</TableCell>
                   {/* Change the header to 'Image' */}
                 </TableRow>
               </TableHead>

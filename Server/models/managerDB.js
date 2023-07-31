@@ -70,6 +70,30 @@ async function updateReportStatus(req, res) {
     res.status(500).json({ error: 'Internal server error.' });
   }
 }
+async function getPayments(req, res) {
+  console.log('in function getPayments');
+  const { start_year, end_year } = req.query;
+  console.log(req.query.type);
+  const sql = `SELECT * FROM payments WHERE reason="${req.query.type}"`;
+
+  try {
+    const result = await pool.query(sql);
+    const payments = result[0];
+    console.log(payments);
+
+    // Filter payments based on the year
+    const filteredPayments = payments.filter((payment) => {
+      const year = parseInt(payment.month.split(' ')[1]); // Extract the year from the 'month' field
+      return year >= parseInt(start_year);
+    });
+
+    console.log(filteredPayments);
+    return res.status(200).json(filteredPayments);
+  } catch (error) {
+    console.error('Error retrieving payments:', error);
+    return res.status(500).json({ error: 'Error retrieving payments' });
+  }
+}
 
 async function getManagerDetails(id) {
   console.log('in function getManagerDetails');
@@ -84,4 +108,5 @@ export {
   getAllProperties,
   updateReportStatus,
   getManagerDetails,
+  getPayments,
 };
